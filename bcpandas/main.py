@@ -329,6 +329,7 @@ def to_sql(
     use_tablock: bool = False,
     debug: bool = False,
     bcp_path: Optional[str] = None,
+    keep_source_identities: bool = False,
     dtype: Optional[dict] = None,
     process_dest_table: bool = True,
     print_output: bool = True,
@@ -376,6 +377,9 @@ def to_sql(
         If True, will not delete the temporary CSV and format files, and will output their location.
     bcp_path : str, default None
         The full path to the BCP utility, useful if it is not in the PATH environment variable
+    keep_source_identities : bool, default False
+        Whether to preserve identity values in the imported data file to be used in identity columns.
+        This option requires ALTER TABLE permissions on the SQL database.
     dtype: dict, default None
         A dict with keys the names of columns and values SqlAlchemy types for defining their types. These are
         directly passed into pandas' API
@@ -478,6 +482,8 @@ def to_sql(
             batch_size=batch_size,
             use_tablock=use_tablock,
             bcp_path=bcp_path,
+            bcp_path=bcp_path,
+            keep_source_identities=keep_source_identities,
         )
     finally:
         if not debug:
