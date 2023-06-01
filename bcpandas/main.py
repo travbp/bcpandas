@@ -482,7 +482,6 @@ def to_sql(
             batch_size=batch_size,
             use_tablock=use_tablock,
             bcp_path=bcp_path,
-            bcp_path=bcp_path,
             keep_source_identities=keep_source_identities,
         )
     finally:
