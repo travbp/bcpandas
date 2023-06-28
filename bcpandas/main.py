@@ -98,7 +98,7 @@ class SqlCreds:
             self.username = username
             self.password = password
             self.with_krb_auth = False
-            db_url += f"UID={username};PWD={password}"
+            # db_url += f"UID={username};PWD={password}"
 
         db_url=f"{self.username}:{self.password}@{self.server}:{self.port}/{self.database}?driver={self.driver}"
         
