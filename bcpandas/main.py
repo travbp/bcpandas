@@ -91,6 +91,11 @@ class SqlCreds:
         db_url = (
             f"Driver={self.driver};Server=tcp:{self.server}{port_str};Database={self.database};"
         )
+        print(f"self.driver: {self.driver}")
+        print(f"self.server: {self.server}")
+        print(f"port_str: {port_str}")
+        print(f"self.database: {self.database}")
+        print(f"db_url: {db_url}")
         if username and password:
             self.username = username
             self.password = password
@@ -108,7 +113,7 @@ class SqlCreds:
         if odbc_kwargs:
             db_url += ";".join(f"{k}={v}" for k, v in odbc_kwargs.items())
         conn_string = f"mssql+pyodbc:///?odbc_connect={quote_plus(db_url)}"
-        print(conn_string)
+        print(f"conn_string: {conn_string}")
         self.engine = sa.engine.create_engine(conn_string)
 
         logger.info(f"Created engine for sqlalchemy:\t{self.engine}")
