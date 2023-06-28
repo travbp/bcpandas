@@ -87,10 +87,9 @@ class SqlCreds:
             port_str = f",{self.port}"
         else:
             port_str = ""
-
-        db_url = (
-            f"Driver={self.driver};Server={self.server}{port_str};Database={self.database};"
-        )
+        # db_url = (
+        #     f"Driver={self.driver};Server={self.server}{port_str};Database={self.database};"
+        # )
         print(f"self.driver: {self.driver}")
         print(f"self.server: {self.server}")
         print(f"port_str: {port_str}")
@@ -100,33 +99,31 @@ class SqlCreds:
             self.password = password
             self.with_krb_auth = False
             db_url += f"UID={username};PWD={password}"
-        else:
-            self.username = ""
-            self.password = ""
-            self.with_krb_auth = True
-            db_url += "Trusted_Connection=yes;"
+
+        db_url=f"{self.username}:{self.password}@{self.server}:{self.port}/{self.database}?driver={self.driver}"
+        
 
         logger.info(f"Created creds:\t{self}")
 
-        # # construct the engine for sqlalchemy
+        # construct the engine for sqlalchemy
         # if odbc_kwargs:
         #     db_url += ";".join(f"{k}={v}" for k, v in odbc_kwargs.items())
-        # conn_string = f"mssql+pyodbc:///?odbc_connect={db_url}"
-        # # conn_string = f"mssql+pyodbc:///?odbc_connect={quote_plus(db_url)}"
-        # print(f"db_url: {db_url}")
-        # print(f"conn_string: {conn_string}")
-        # self.engine = sa.engine.create_engine(conn_string)
+        conn_string = f"mssql+pyodbc://{db_url}"
+        # conn_string = f"mssql+pyodbc:///?odbc_connect={quote_plus(db_url)}"
+        print(f"db_url: {db_url}")
+        print(f"conn_string: {conn_string}")
+        self.engine = sa.engine.create_engine(conn_string)
 
-        url_object = sa.engine.URL.create(
-            "mssql+pyodbc",
-            username=self.username,
-            password=self.password,  # plain (unescaped) text
-            host=self.server,
-            port=self.port,
-            database=self.database,
-        )
+        # url_object = sa.engine.URL.create(
+        #     "mssql+pyodbc",
+        #     username=self.username,
+        #     password=self.password,  # plain (unescaped) text
+        #     host=self.server,
+        #     port=self.port,
+        #     database=self.database,
+        # )
 
-        self.engine = sa.engine.create_engine(url_object)
+        # self.engine = sa.engine.create_engine(url_object)
 
         logger.info(f"Created engine for sqlalchemy:\t{self.engine}")
 
