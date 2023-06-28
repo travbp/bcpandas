@@ -78,9 +78,9 @@ class SqlCreds:
                 d.split("Driver ")[-1].split(" ")[0] for d in all_drivers if "SQL Server" in d
             ]
             new_driver_version: int = max(int(v) for v in driver_candidates if v.isnumeric())
-            self.driver = f"{{ODBC Driver {new_driver_version} for SQL Server}}"
+            self.driver = f"ODBC Driver {new_driver_version} for SQL Server"
         else:
-            self.driver = f"{{ODBC Driver {driver_version} for SQL Server}}"
+            self.driver = f"ODBC Driver {driver_version} for SQL Server"
 
         # Append a comma for use in connection strings (optionally blank)
         if port:
@@ -100,7 +100,7 @@ class SqlCreds:
             self.with_krb_auth = False
             # db_url += f"UID={username};PWD={password}"
 
-        db_url=f"{self.username}:{self.password}@{self.server}:{self.port}/{self.database}?driver={self.driver}"
+        db_url=f"{self.username}:{self.password}@{self.server}:{self.port}/{self.database}?driver={self.driver.replace(' ','+')}"
         
 
         logger.info(f"Created creds:\t{self}")
