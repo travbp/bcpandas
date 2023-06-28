@@ -6,7 +6,7 @@ import pkg_resources
 from bcpandas.main import SqlCreds, to_sql
 from bcpandas.utils import bcp
 
-name = "bcpandas_git"
+name = "bcpandas"
 try:
     __version__ = pkg_resources.get_distribution(__name__).version
 except Exception:
