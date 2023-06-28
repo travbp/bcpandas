@@ -89,7 +89,7 @@ class SqlCreds:
             port_str = ""
 
         db_url = (
-            f"Driver={self.driver};Server=tcp:{self.server}{port_str};Database={self.database};"
+            f"Driver={self.driver};Server={self.server}{port_str};Database={self.database};"
         )
         print(f"self.driver: {self.driver}")
         print(f"self.server: {self.server}")
