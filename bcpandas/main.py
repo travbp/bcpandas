@@ -90,10 +90,6 @@ class SqlCreds:
         # db_url = (
         #     f"Driver={self.driver};Server={self.server}{port_str};Database={self.database};"
         # )
-        print(f"self.driver: {self.driver}")
-        print(f"self.server: {self.server}")
-        print(f"port_str: {port_str}")
-        print(f"self.database: {self.database}")
         if username and password:
             self.username = username
             self.password = password
@@ -110,9 +106,7 @@ class SqlCreds:
         #     db_url += ";".join(f"{k}={v}" for k, v in odbc_kwargs.items())
         conn_string = f"mssql+pyodbc://{db_url}"
         # conn_string = f"mssql+pyodbc:///?odbc_connect={quote_plus(db_url)}"
-        print(f"db_url: {db_url}")
-        print(f"conn_string: {conn_string}")
-        self.engine = sa.engine.create_engine(conn_string)
+        self.engine = sa.engine.create_engine(conn_string, connect_args = {"TrustServerCertificate": "yes"})
 
         # url_object = sa.engine.URL.create(
         #     "mssql+pyodbc",
