@@ -239,7 +239,7 @@ def _handle_cols_for_append(
                 creds.engine,
             ).values
         )
-        print(cols_dict)
+        print(df.columns)
 
         # check that column names match in db and dataframe exactly
         if sql_item_exists:
