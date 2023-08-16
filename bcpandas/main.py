@@ -62,10 +62,10 @@ class SqlCreds:
         self,
         server: str,
         database: str,
+        port: int,
         username: Optional[str] = None,
         password: Optional[str] = None,
         driver_version: Optional[int] = None,
-        port: int = 1433,
         odbc_kwargs: Optional[Dict[str, Union[str, int]]] = None,
     ):
         self.server = server
