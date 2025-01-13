@@ -247,7 +247,7 @@ def _handle_cols_for_append(
             extra_cols = [str(x) for x in df.columns if str(x) not in cols_dict.keys()]
             if extra_cols:
                 raise BCPandasValueError(
-                    f"Column(s) detected in the dataframe that are not in the database, "
+                    f"Column(s) detected in the dataframe that are not in the database for {schema}.{table_name}, "
                     f"cannot have new columns if `if_exists=='append'`, "
                     f"the extra column(s): {extra_cols}"
                 )
